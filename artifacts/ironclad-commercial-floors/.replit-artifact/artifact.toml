@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Ironclad Commercial Floors"
+description = "A publishable marketing website for Ironclad Commercial Floors, a 24/7 Vancouver commercial flooring contractor, focused on project inquiries, service clarity, and trust."
+version = "1.0.0"
+id = "artifacts/ironclad-commercial-floors"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22286
+
+[services.development]
+run = "pnpm --filter @workspace/ironclad-commercial-floors run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ironclad-commercial-floors", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/ironclad-commercial-floors/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22286"
+BASE_PATH = "/"
